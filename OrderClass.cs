@@ -12,13 +12,13 @@ namespace CRM
         public DateTime Date { get; set; }
         public decimal TotalAmount { get; set; }
         public string DeliveryAddress { get; set; }
-        public string PaymentToken { get; set; }
-        public bool IsPaid { get; set; }
+        protected string PaymentToken { get; set; }
+        protected bool IsPaid { get; set; }
         public List<ProductClass> Products { get; set; }
 
-        public OrderClass(DateTime date, decimal totalAmount, string deliveryAddress, string paymentToken, bool isPaid, List<ProductClass> products)
+        public OrderClass(decimal totalAmount, string deliveryAddress, string paymentToken, bool isPaid, List<ProductClass> products)
         {
-            Date = date;
+            Date = DateTime.Now;
             TotalAmount = totalAmount;
             DeliveryAddress = deliveryAddress;
             PaymentToken = paymentToken;
@@ -35,7 +35,6 @@ namespace CRM
             }
 
             return new OrderClass(
-            DateTime.Now,
             TotalAmount,
             DeliveryAddress,
             null,
@@ -46,7 +45,6 @@ namespace CRM
 
         public void PrintOrderDetails()
         {
-
             Console.WriteLine($"Дата: {Date}");
             Console.WriteLine($"Загальна сума: {TotalAmount}");
             Console.WriteLine($"Адреса доставки: {DeliveryAddress}");
@@ -55,12 +53,9 @@ namespace CRM
             Console.WriteLine("Продукти:");
             foreach (var product in Products)
             {
-                Console.WriteLine($"- {product.Name}, Ціна: {product.Price}, Кількість: {product.Manufacturer}");
+                Console.WriteLine(product.ToString());
             }
         }
-
-
     }
-
 }
 
